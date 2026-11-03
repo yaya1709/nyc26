@@ -106,7 +106,8 @@ text-decoration:none;color:#fff}
 .vol img{width:44px;height:44px;border-radius:10px;background:#fff}
 .info{flex:1;min-width:0}.cie{font-weight:700}
 .ligne{font-size:13px;color:#94a3b8;margin-top:3px}
-.prix{text-align:right}.prix b{font-size:22px;color:#38bdf8;display:block}.prix small{color:#94a3b8;font-size:12px}
+.prix{text-align:right}.prix b{font-size:22px;color:#38bdf8;display:block}.prix small{color:#94a3b8;font-size:12px;display:block}
+.bag{background:#422006;color:#fbbf24;border-radius:12px;padding:12px 14px;font-size:14px;margin:0 0 12px}
 .direct{color:#4ade80;font-weight:600}.esc{color:#fbbf24;font-weight:600}
 .retour{display:inline-block;margin:6px 0 14px;color:#38bdf8;text-decoration:none}
 .note{color:#94a3b8;font-size:14px;margin:0 0 12px}
@@ -176,6 +177,7 @@ def vols():
     titre = f"{VILLES[dep]} → {VILLES[arr]}"
     sous = aller.strftime("%d/%m") + (f" – {retour.strftime('%d/%m')}" if retour else " · aller simple")
     html = ENTETE + f'<a class="retour" href="/">← Nouvelle recherche</a><h1>{titre}</h1><p class="note">{sous} · {ad} adulte{"s" if ad > 1 else ""}</p>'
+    html += '<div class="bag">🧳 Les prix n\'incluent pas la valise en soute : elle s\'ajoute au moment de la réservation.</div>'
     if approx:
         html += '<p class="note">Pas de prix exact pour ces dates : voici les moins chers du mois.</p>'
 
@@ -193,10 +195,10 @@ def vols():
         html += f"""<a class="vol" href="{lien}" target="_blank" rel="noopener">
 <img src="https://pics.avs.io/88/88/{cie}.png" alt="{nom}">
 <div class="info"><div class="cie">{nom}</div><div class="ligne">{aller_l}</div>{ret_l}</div>
-<div class="prix"><b>{prix} €</b><small>Réserver →</small></div></a>"""
+<div class="prix"><b>{prix} €</b><small>🧳 Valise non incluse</small><small>Réserver →</small></div></a>"""
 
     html += f'<a class="btn2" href="{lien_recherche(dep, arr, aller, retour, ad)}" target="_blank" rel="noopener">Voir tous les vols en direct</a>'
-    return html + '<p class="note" style="text-align:center;margin-top:14px">Prix indicatifs, vérifiés au moment de réserver</p></div></body></html>'
+    return html + '<p class="note" style="text-align:center;margin-top:14px">Prix indicatifs, hors valise en soute, vérifiés au moment de réserver</p></div></body></html>'
 
 
 if __name__ == "__main__":
